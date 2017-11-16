@@ -30,17 +30,18 @@ public class client {
 
       while(true) {
         String status = in.readLine();
+        System.out.println("status: " + status);
         
         //TODO: figure out how to format the data... for now assuming a string concatenation deal
-        if (Integer.valueOf(status.charAt(0)) == 0) {
+        if (status.charAt(0) == '0') {
           //play game
           board(status);
-          userInput = scanner.next();
+          userInput = scanner.next().toLowerCase();
           while (!validGuess(userInput)) {
             System.out.println("Error! Please guess one letter.");
             userInput = scanner.next();
           }
-          out.println(userInput.toLowerCase());
+          out.println(userInput);
         
         } else {
           //print out message (minus message flag)
@@ -48,7 +49,6 @@ public class client {
           System.out.println(message);
           if (message.equals("Game Over!")) break game;
         }
-      
       }
     
     } finally {
@@ -62,9 +62,9 @@ public class client {
     System.out.println("BOARD");
   }
 
-  //TODO: implement
   //checks if user's guess is a single letter 
   private static boolean validGuess(String userInput) {
-    return true;
+    return userInput.length() == 1 && userInput.charAt(0) <= 'z' && userInput.charAt(0)
+     >= 'a';
   }
 }

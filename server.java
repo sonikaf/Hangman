@@ -10,29 +10,31 @@ public class server {
     System.out.println("Server Started");
     sessions = 0;
    
-   try {
+   threads: try {
       while(true) {
         // Blocks until a connection occurs:
         Socket socket = s.accept();
         sessions++;
         try {
+          
           if (sessions <= 3) new PlayerThread(socket);
           else {
-            
-            //TODO: server overload message
-            socket.close();
-            sessions--;
+            //server overload message
+            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+            out.println("17server-overloaded");
+            break threads;
+
           }
         } catch(IOException e) {
           // If it fails, close the socket,
           // otherwise the thread will close it:
-          socket.close();
-          sessions--;
+          break threads;
         }
       }
     
     } finally {
       s.close();
+      sessions--;
     }
   } 
 }
@@ -49,11 +51,11 @@ class PlayerThread extends Thread {
 
     try {
       System.out.println("made it!");
-      out.println("you're playing :)");
+      out.println("9you're playing :)");
 
       String str = in.readLine();
       System.out.println("now we're talking");
-      out.println("9Game Over!");
+      out.println("0word");
     
     } catch (IOException e) {
     
