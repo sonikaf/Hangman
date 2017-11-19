@@ -5,11 +5,17 @@ public class server {
     //TODO read port from command line
     static final int PORT = 8080;
     static public int sessions;
+    static protected String[] words;
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
         Socket socket = null;
         System.out.println("Server Started");
-        sessions = 0;
+        System.out.println(args.length);
+        words = new String[]{"foo", "bar", "baz", "sonika", "michael", "hummus", "hodor", "sun",
+                 "flower", "capital", "amazon", "seattle", "burdell", "computer",
+                  "monet"};
+
+
         try {
              serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
