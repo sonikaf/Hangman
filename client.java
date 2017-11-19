@@ -1,14 +1,20 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.net.ConnectException;
 
 public class client {
-
     public static void main(String[] args) throws IOException {
 
-        // TODO: fix addr
-        InetAddress addr = InetAddress.getByName(null);
-        Socket socket = new Socket(addr, server.PORT);
+        if(args.length != 2) {
+            System.out.println("Incorrect number of arguments.");
+            System.exit(0);
+        }
+        String addressString = args[0];
+        InetAddress addr = InetAddress.getByName(args[0]);
+        int PORT = Integer.parseInt(args[1]);
+        Socket socket = new Socket(addr, PORT);
+
         Scanner scanner = new Scanner(System.in);
 
         game: try {
