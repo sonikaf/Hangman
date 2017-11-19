@@ -25,8 +25,9 @@ public class server {
            }
 
            if (sessions <= 3) {
-             new PlayerThread(socket);
+             new PlayerThread(socket).start();
            } else {
+             sessions--;
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
              out.println("17server-overloaded");
              out.close();
@@ -45,7 +46,9 @@ class PlayerThread extends Thread {
         this.socket = s;
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+    }
 
+    public void run() {
         out.println("good");
 
         try {
@@ -56,7 +59,6 @@ class PlayerThread extends Thread {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         } finally {
             try {
                 server.sessions--;
