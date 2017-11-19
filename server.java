@@ -63,9 +63,44 @@ class PlayerThread extends Thread {
             //wait for user's ready signal
             String str = in.readLine();
 
-            //pick word
-            out.println("" + (char) 0 + (char) 4 + (char) 2 + "_o__ab");
+            //pick random word
+            String word = server.words[(int) Math.floor(Math.random() * server.words.length)];
 
+            //set up relevent vars
+            int wordLength = word.length();
+            String incorrectGuesses = "";
+            String gameStatus = "";
+            for (int i = 0; i < wordLength; i++) gameStatus += "_";
+            char guess;
+
+            //play game
+            while (gameStatus.indexOf('_') != -1 || incorrectGuesses.length() < 6) {
+
+                out.println("" + (char) 0 + (char) wordLength + (char) incorrectGuesses.length() + gameStatus + incorrectGuesses + "");
+                guess = in.readLine().charAt(0);
+
+                //if already guessed
+                if (gameStatus.indexOf(guess) != -1 || incorrectGuesses.indexOf(guess) != -1) continue;
+
+                int index = word.indexOf(guess);
+                if (index != -1) { //correct guess
+
+                    String front = "";
+                    String back = "";
+
+                    //find all indexes of the guess in the word
+                    while (index >= 0) {
+                        front = gameStatus.substring(0, index);
+                        back = gameStatus.substring(index + 1);
+                        gameStatus = front + guess + back;
+
+                        index = word.indexOf(guess, index + 1);
+                    }
+
+                } else { //incorrect guess
+                    incorrectGuesses += guess;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
