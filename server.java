@@ -74,7 +74,7 @@ class PlayerThread extends Thread {
             char guess;
 
             //play game
-            while (gameStatus.indexOf('_') != -1 || incorrectGuesses.length() < 6) {
+            while (gameStatus.indexOf('_') != -1 && incorrectGuesses.length() < 6) {
 
                 out.println("" + (char) 0 + (char) wordLength + (char) incorrectGuesses.length() + gameStatus + incorrectGuesses + "");
                 guess = in.readLine().charAt(0);
@@ -102,10 +102,20 @@ class PlayerThread extends Thread {
                 }
             }
 
+
+            if (gameStatus.indexOf('_') == -1) { //user won
+                out.println("" + (char) 8 + "You Win!");
+
+            } else { //user lost
+                out.println("" + (char) 8 + "You Lose");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
+                out.println("" + (char) 10 + "Game Over!");
+                out.close();
                 server.sessions--;
                 socket.close();
             } catch(IOException e) {
