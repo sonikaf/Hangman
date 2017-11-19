@@ -25,12 +25,12 @@ public class client {
             }
             if (userInput.equals("n")) break game;
 
-            //signals start of 
-            //game to server
+            //signals start of game to server
             System.out.println();
             out.println();
 
             while(true) {
+                //status is the message from server
                 String status = in.readLine();
                 if ((int) status.charAt(0) == 0) {
                     //play game
