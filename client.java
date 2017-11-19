@@ -1,21 +1,29 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
- 
+
 public class client {
 
     public static void main(String[] args) throws IOException {
-    
+
         // TODO: fix addr
         InetAddress addr = InetAddress.getByName(null);
         Socket socket = new Socket(addr, server.PORT);
         Scanner scanner = new Scanner(System.in);
-        
-        game: try {
 
+        game: try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-          
+
+            //status is the message from server
+            String status = in.readLine();
+
+            //check if server is ready
+            if (status.equals("17server-overloaded")) {
+              System.out.println(status);
+              break game;
+            }
+
             //check if user is ready
             System.out.print("\nReady to start game? (y/n): ");
             String userInput = scanner.nextLine();
@@ -30,8 +38,7 @@ public class client {
             out.println();
 
             while(true) {
-                //status is the message from server
-                String status = in.readLine();
+                status = in.readLine();
                 if ((int) status.charAt(0) == 0) {
                     //play game
                     board(status);
@@ -41,7 +48,7 @@ public class client {
                         userInput = scanner.next();
                     }
                     out.println(userInput);
-                
+
                 } else {
                     //print out message (minus message flag)
                     String message = status.substring(1);
@@ -49,7 +56,7 @@ public class client {
                     if (message.equals("Game Over!")) break game;
                 }
             }
-        
+
         } finally {
             socket.close();
         }
@@ -72,7 +79,7 @@ public class client {
         System.out.print("\nLetter to guess: ");
     }
 
-    //checks if user's guess is a single letter 
+    //checks if user's guess is a single letter
     private static boolean validGuess(String userInput) {
         return userInput.length() == 1 && userInput.charAt(0) <= 'z' && userInput.charAt(0) >= 'a';
     }
