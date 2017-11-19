@@ -67,12 +67,12 @@ public class client {
 
         int length = (int) status.charAt(1);
         //updated word
-        for (int i = 2; i < length + 2; i++) {
+        for (int i = 3; i < length + 3; i++) {
             System.out.print(status.charAt(i) + " ");
         }
         //updated incorrect guesses
         System.out.print("\nIncorrect Guesses: ");
-        for (int i = length + 2; i < status.length(); i++) {
+        for (int i = length + 3; i < status.length(); i++) {
             System.out.print(status.charAt(i) + " ");
         }
         //new guess

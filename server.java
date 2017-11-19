@@ -54,7 +54,7 @@ class PlayerThread extends Thread {
         try {
           String str = in.readLine();
             //word guessed a, b and o
-            out.println("" + (char) 0 + (char) 4 + "_o__ab");
+            out.println("" + (char) 0 + (char) 4 + (char) 2 + "_o__ab");
 
 
         } catch (IOException e) {
