@@ -55,12 +55,16 @@ class PlayerThread extends Thread {
     }
 
     public void run() {
-        out.println("good");
 
         try {
-          String str = in.readLine();
-            //word guessed a, b and o
-            out.println("" + (char) 0 + (char) 4 + "_o__ab");
+            //send server ready signal
+            out.println("good");
+            
+            //wait for user's ready signal
+            String str = in.readLine();
+
+            //pick word
+            out.println("" + (char) 0 + (char) 4 + (char) 2 + "_o__ab");
 
 
         } catch (IOException e) {
