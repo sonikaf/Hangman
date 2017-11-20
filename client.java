@@ -25,7 +25,7 @@ public class client {
             String status = in.readLine();
 
             //check if server is ready
-            if (status.equals("17server-overloaded")) {
+            if (status.equals((char) 17 + "server-overloaded")) {
               System.out.println(status);
               break game;
             }
@@ -44,10 +44,10 @@ public class client {
             out.println();
 
             while(true) {
-                status = in.readLine();
-                if ((int) status.charAt(0) == 0) {
+                int flag = in.read();
+                if (flag == 0) {
                     //play game
-                    board(status);
+                    board(in.read(), in.read(), in.readLine());
                     userInput = scanner.next().toLowerCase();
                     while (!validGuess(userInput)) {
                         System.out.print("Error! Please guess one letter: ");
@@ -56,10 +56,10 @@ public class client {
                     out.println(userInput);
 
                 } else {
-                    //print out message (minus message flag)
-                    String message = status.substring(1);
+                    String message = in.readLine();
                     System.out.println(message);
                     if (message.equals("Game Over!")) break game;
+                    else out.println("Ok");
                 }
             }
 
@@ -69,20 +69,20 @@ public class client {
       }
 
       //prints out hangman board for user given status
-    private static void board(String status) {
+    private static void board(int length, int numIncorrectGuesses, String status) {
 
-        int length = (int) status.charAt(1);
         //updated word
-        for (int i = 3; i < length + 3; i++) {
+        for (int i = 0; i < length; i++) {
             System.out.print(status.charAt(i) + " ");
         }
         //updated incorrect guesses
         System.out.print("\nIncorrect Guesses: ");
-        for (int i = length + 3; i < status.length(); i++) {
+        for (int i = length
+            ; i < status.length(); i++) {
             System.out.print(status.charAt(i) + " ");
         }
         //new guess
-        System.out.print("\nLetter to guess: ");
+        System.out.print("\n\nLetter to guess: ");
     }
 
     //checks if user's guess is a single letter
