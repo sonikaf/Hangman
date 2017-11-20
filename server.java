@@ -134,8 +134,7 @@ class PlayerThread extends Thread {
                 out.println("" + (char) 8 + "You Win!");
 
             } else { //user lost
-                out.println("" + (char) 8 + "You Lose :(");
-                out.println("The correct word was: " + word);
+                out.println("" + (char) 11 + "You Lose :(");
             }
             in.readLine();
             out.println("" + (char) 10 + "Game Over!");
