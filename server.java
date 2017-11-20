@@ -54,7 +54,7 @@ class PlayerThread extends Thread {
 
     public void run() {
 
-        try {
+        game: try {
             //send server ready signal
             out.println("good");
             
@@ -105,12 +105,15 @@ class PlayerThread extends Thread {
             } else { //user lost
                 out.println("" + (char) 8 + "You Lose");
             }
+            in.readLine();
+            out.println("" + (char) 10 + "Game Over!");
+
+            break game;
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                out.println("" + (char) 10 + "Game Over!");
                 out.close();
                 server.sessions--;
                 socket.close();
