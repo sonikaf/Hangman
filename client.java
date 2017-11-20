@@ -19,7 +19,7 @@ public class client {
             String status = in.readLine();
 
             //check if server is ready
-            if (status.equals("17server-overloaded")) {
+            if (status.equals((char) 17 + "server-overloaded")) {
               System.out.println(status);
               break game;
             }

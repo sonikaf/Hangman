@@ -14,8 +14,6 @@ public class server {
         words = new String[]{"foo", "bar", "baz", "sonika", "michael", "hummus", "hodor", "sun",
                  "flower", "capital", "amazon", "seattle", "burdell", "computer",
                   "monet"};
-
-
         try {
              serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
@@ -35,7 +33,7 @@ public class server {
            } else {
              sessions--;
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-             out.println("17server-overloaded");
+             out.println("" + (char) 17 + "server-overloaded");
              out.close();
              socket.close();
            }
@@ -96,12 +94,10 @@ class PlayerThread extends Thread {
 
                         index = word.indexOf(guess, index + 1);
                     }
-
                 } else { //incorrect guess
                     incorrectGuesses += guess;
                 }
             }
-
 
             if (gameStatus.indexOf('_') == -1) { //user won
                 out.println("" + (char) 8 + "You Win!");
