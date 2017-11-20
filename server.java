@@ -1,3 +1,4 @@
+/* Created by Sonika Finch and Michael Chen */
 import java.io.*;
 import java.net.*;
 import java.lang.Exception;
@@ -10,7 +11,7 @@ public class server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
         Socket socket = null;
-        
+
         System.out.println("Server Started");
         if(args.length < 1 || args.length > 2) {
             System.out.println("Incorrect number of arguments.");
@@ -133,7 +134,8 @@ class PlayerThread extends Thread {
                 out.println("" + (char) 8 + "You Win!");
 
             } else { //user lost
-                out.println("" + (char) 8 + "You Lose");
+                out.println("" + (char) 8 + "You Lose :(");
+                out.println("The correct word was: " + word);
             }
             in.readLine();
             out.println("" + (char) 10 + "Game Over!");
