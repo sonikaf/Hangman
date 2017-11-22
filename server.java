@@ -51,7 +51,6 @@ public class server {
              e.printStackTrace();
         }
         while(true) {
-          System.out.println("sessions: " + sessions);
            try {
              socket = serverSocket.accept();
              sessions++;
